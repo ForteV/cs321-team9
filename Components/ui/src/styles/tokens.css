@@ -1,0 +1,16 @@
+/*These are tokens to use, they lead to colors or sizes. You can use them in other css files with var(token)
+    i.e:  .card { background: var(--surface); border: 1px solid var(--border); }
+
+  This is good because with one change you can update colors that you want!
+*/
+
+:root{
+  --bg:#f6f7fb; 
+  --surface:#fff; 
+  --text:#0f172a; 
+  --muted:#6b7280;
+  --border:#e5e7eb; 
+  --brand:#2563eb; 
+  --radius:12px; 
+  --space:16px;
+}

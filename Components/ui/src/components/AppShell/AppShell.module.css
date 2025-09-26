@@ -1,0 +1,82 @@
+/*Displacement, so the it fits automaitcally beside the side bar
+    ie: [Sidebar][        Main Content        ]
+*/
+.app{
+    display:grid;
+    grid-template-columns:240px 1fr;
+    min-height:100dvh
+}
+
+
+/*Sidebar*/
+.sidebar{
+    background:#fff;
+    border-right:1px solid var(--border);
+    padding:24px 16px
+}
+
+.sideTitle{
+    font-weight:700;
+    color:var(--muted);
+    margin-bottom:8px
+}
+
+/*Navigational links on sidebar*/
+.nav{
+    display:grid;
+    gap:6px
+} 
+.nav a{
+    padding:8px 10px;
+    border-radius:8px;
+    color:#111827
+}
+.nav a:hover{
+    background:#f3f4f6
+}
+
+.main{
+    padding:24px 32px;
+    display:grid;
+    gap:24px
+}
+
+.pagebar{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;gap:12px
+}
+
+.brand{
+    margin:0;
+    font-size:18px
+}
+
+/*Search bar*/
+.search{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface)
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:24px
+}
+
+.block{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px
+}
+
+/*For mobile*/
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sidebar{border-right:0;border-bottom:1px solid var(--border)}
+  .cards{grid-template-columns:1fr}
+}
