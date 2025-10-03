@@ -10,21 +10,28 @@
 
 /*Sidebar*/
 .sidebar{
-    background:#fff;
+    border-radius: 10px;
+    background:#9DCAC1;
     border-right:1px solid var(--border);
-    padding:24px 16px
+    margin-left: 30px;
+    margin-bottom: 24px;
+    padding: 24px 16px
 }
 
 .sideTitle{
+    font-size: 24px;
     font-weight:700;
     color:var(--muted);
-    margin-bottom:8px
+    margin-left: 8px;
+    margin-bottom: 16px
 }
 
 /*Navigational links on sidebar*/
 .nav{
     display:grid;
-    gap:6px
+    font-size: 16px;
+    font-weight: 600;
+    gap: 10px
 } 
 .nav a{
     padding:8px 10px;
@@ -32,7 +39,9 @@
     color:#111827
 }
 .nav a:hover{
-    background:#f3f4f6
+    color: #ffff;
+    text-decoration: none;
+    background:rgb(110, 158, 149)
 }
 
 .main{
