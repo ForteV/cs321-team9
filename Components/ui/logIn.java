@@ -22,10 +22,10 @@ public class logIn {
     }
 
     public static void main(String[] args) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/MedicalDB";
-        String databaseUsername = "cs321";
-        String databasePassword = "team9";
+        //String url = "jdbc:mysql://localhost:3306/MedicalDB";
+        //String databaseUsername = "cs321";
+        //String databasePassword = "team9";
 
-        Connection con = DriverManager.getConnection(url, databaseUsername, databasePassword);
+        //Connection con = DriverManager.getConnection(url, databaseUsername, databasePassword);
     }
 }
