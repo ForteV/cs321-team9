@@ -22,9 +22,9 @@ export default function AppShell(){
 
       <main className={s.main}>
         <header className={s.pagebar}>
-          <h1 className={s.brand}>MediBase</h1>
+          <h1 className={s.logo}>MediBase</h1>
           <input className={s.search} placeholder="Search records…" />
-          <button className="button primary">+ Add record</button>
+         {/*<button className="button primary">+ Add record</button>*/}
         </header>
 
         <section className={s.cards}>
