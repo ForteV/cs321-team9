@@ -1,11 +1,11 @@
 package Components.ui;
 import java.sql.*;
 
-public class logIn {
+public class LogIn {
     String givenUsername;
     String givenPassword;
 
-    logIn(String givenUsername, String givenPassword) {
+    LogIn(String givenUsername, String givenPassword) {
         this.givenUsername = givenUsername;
         this.givenPassword = givenPassword;
     }
