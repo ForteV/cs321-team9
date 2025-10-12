@@ -1,16 +1,11 @@
-/* =========================
-   Variables
-   ========================= */
+/* Variables*/
 :root {
   /* header height used by the fixed header hack */
   --pagebar-h: 125px;
-  /* (keep your other design tokens in your project if any) */
 }
 
-/* =========================
-   App layout
-   (grid: [sidebar][main])
-   ========================= */
+/*App layout
+  (grid: [sidebar][main])*/
 .app {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -22,13 +17,10 @@
   grid-template-rows: auto 1fr;
 }
 
-/* =========================
-   Top / Page header (pagebar)
-   - fixed visual header that sits above the grid
-   ========================= */
+/* Top / Page header (pagebar)*/
 .pagebar {
   position: fixed;
-  inset: 0 0 auto 0;         /* top:0; left:0; right:0; bottom:auto */
+  inset: 0 0 auto 0;         
   height: var(--pagebar-h);
   display: flex;
   align-items: center;
@@ -51,9 +43,7 @@
   .pagebar { height: var(--pagebar-h); padding: 12px; }
 }
 
-/* =========================
-   Branding / Logo
-   ========================= */
+/*Branding/Logo*/
 .brand {
   margin: 0;
   font-size: 18px;
@@ -75,12 +65,10 @@
   text-rendering: optimizeLegibility;
 }
 
-/* force color if ancestor styles try to override */
+/*Force color*/
 .pagebar .logo { color: #02C39A; }
 
-/* =========================
-   Sidebar
-   ========================= */
+/*Sidebar*/
 .sidebar {
   background: #fff;
   border-right: 1px solid var(--border);
@@ -93,9 +81,7 @@
   margin-bottom: 8px;
 }
 
-/* =========================
-   Sidebar navigation (quicklinks)
-   ========================= */
+/*Sidebar navigation (quicklinks)*/
 .nav {
   display: grid;
   gap: 6px;
@@ -113,9 +99,7 @@
   background: #f3f4f6;
 }
 
-/* =========================
-   Main content area
-   ========================= */
+/* Main content area*/
 .main {
   padding: 24px 32px;
   display: grid;
@@ -129,6 +113,50 @@
   gap: 24px;
 }
 
+/*Welcome section*/
+.welcomeSection {
+  background: var(--card, #fff);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* left column text */
+.welcomeText h2 {
+  margin: 0;
+  font-size: 3.25rem;
+  font-weight: 600;
+}
+.welcomeSub {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* right column actions */
+.welcomeActions .button {
+  /* no-op if you already use a global .button; kept so it lines up */
+  min-width: 140px;
+}
+
+/* responsive: stack on small screens */
+@media (max-width: 900px) {
+  .welcomeSection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .welcomeActions {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
 .block {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -136,9 +164,7 @@
   padding: 16px;
 }
 
-/* =========================
-   Search area (in header)
-   ========================= */
+/* Search area (in header)*/
 .search {
   display: flex;
   width: 460px;
@@ -151,6 +177,3 @@
   background: #02C39A;
 }
 
-/* =========================
-   Utilities / small helpers
-   ========================= */
