@@ -10,11 +10,11 @@ public class logIn {
         this.givenPassword = givenPassword;
     }
     boolean usernameCorrect(String username) {
-        return false; //change
+        return false; //change to search for username, check if given username is in the database
     }
 
     boolean passwordCorrect(String password) {
-        return false; //change
+        return false; //change to search for password, dont check if username isn't in database
     }
 
     boolean loggedIn(String username, String password) {
@@ -23,8 +23,8 @@ public class logIn {
 
     public static void main(String[] args) throws SQLException {
         //String url = "jdbc:mysql://localhost:3306/MedicalDB";
-        //String databaseUsername = "cs321";
-        //String databasePassword = "team9";
+        //String databaseUsername = "root";
+        //String databasePassword = "cs321team9";
 
         //Connection con = DriverManager.getConnection(url, databaseUsername, databasePassword);
     }
