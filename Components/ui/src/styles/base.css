@@ -10,9 +10,14 @@ Hash = #id (unique ID)
 
 /*Automatic styling, for the whole website*/
 *{box-sizing:border-box} body{
-    margin:0;background:var(--bg);
+    margin:0;
+    background:var(--bg);
     color:var(--text);
-    font:14px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial
+    font-size:24px;
+    line-height:normal;
+    font-style: normal;
+    font-weight: 400;
+    font-family:"Lexend", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
 }
 
 a{
@@ -32,9 +37,9 @@ a:hover{
 /*Manual Styling for certain parts of website*/
 /*Button*/
 .button{
-    padding:10px 14px;
+    padding:30px 50px;
     border-radius:10px;
-    border:1px solid var(--border);
+    border:4px solid var(--border);
 
     background:var(--surface);
     cursor:pointer

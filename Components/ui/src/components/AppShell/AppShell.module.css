@@ -1,91 +1,179 @@
-/*Displacement, so the it fits automaitcally beside the side bar
-    ie: [Sidebar][        Main Content        ]
-*/
-.app{
-    display:grid;
-    grid-template-columns:240px 1fr;
-    min-height:100dvh
+/* Variables*/
+:root {
+  /* header height used by the fixed header hack */
+  --pagebar-h: 125px;
 }
 
+/*App layout
+  (grid: [sidebar][main])*/
+.app {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100dvh;
+}
+
+/* optional helper (unused/kept as-is) */
+.top-part {
+  grid-template-rows: auto 1fr;
+}
+
+/* Top / Page header (pagebar)*/
+.pagebar {
+  position: fixed;
+  inset: 0 0 auto 0;         
+  height: var(--pagebar-h);
+  display: flex;
+  align-items: center;
+  background: var(--card, #fff);
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(16,24,40,0.06);
+  box-shadow: 0 1px 0 rgba(16,24,40,0.02);
+  z-index: 9999;
+  width: 100%;
+}
+
+/* push everything inside .app (except the header) down by header height */
+.app > :not(.pagebar) {
+  margin-top: var(--pagebar-h);
+}
+
+/* small responsive tweak */
+@media (max-width: 720px) {
+  :root { --pagebar-h: 88px; }
+  .pagebar { height: var(--pagebar-h); padding: 12px; }
+}
+
+/*Branding/Logo*/
+.brand {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* Separate logo styling */
+.logo {
+  color: #02C39A;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 1;
+  display: inline-block;
+  padding: 0 18px;
+  margin: 0 8px;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  overflow: visible;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/*Force color*/
+.pagebar .logo { color: #02C39A; }
 
 /*Sidebar*/
-.sidebar{
-    border-radius: 10px;
-    background:#9DCAC1;
-    border-right:1px solid var(--border);
-    margin-left: 30px;
-    margin-bottom: 24px;
-    padding: 24px 16px
+.sidebar {
+  background: #fff;
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
 }
 
-.sideTitle{
-    font-size: 24px;
-    font-weight:700;
-    color:var(--muted);
-    margin-left: 8px;
-    margin-bottom: 16px
+.sideTitle {
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 8px;
 }
 
-/*Navigational links on sidebar*/
-.nav{
-    display:grid;
-    font-size: 16px;
-    font-weight: 600;
-    gap: 10px
-} 
-.nav a{
-    padding:8px 10px;
-    border-radius:8px;
-    color:#111827
-}
-.nav a:hover{
-    color: #ffff;
-    text-decoration: none;
-    background:rgb(110, 158, 149)
+/*Sidebar navigation (quicklinks)*/
+.nav {
+  display: grid;
+  gap: 6px;
 }
 
-.main{
-    padding:24px 32px;
-    display:grid;
-    gap:24px
+.nav a {
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #111827;
+  text-decoration: none;
+  display: block;
 }
 
-.pagebar{
-    display:grid;
-    grid-template-columns:auto 1fr auto;
-    align-items:center;gap:12px
+.nav a:hover {
+  background: #f3f4f6;
 }
 
-.brand{
-    margin:0;
-    font-size:18px
+/* Main content area*/
+.main {
+  padding: 24px 32px;
+  display: grid;
+  gap: 24px;
 }
 
-/*Search bar*/
-.search{
-    width:100%;
-    padding:10px 12px;
-    border:1px solid var(--border);
-    border-radius:10px;
-    background:var(--surface)
+/* cards / grid inside main */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
 }
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:24px
+/*Welcome section*/
+.welcomeSection {
+  background: var(--card, #fff);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.block{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:16px
+/* left column text */
+.welcomeText h2 {
+  margin: 0;
+  font-size: 3.25rem;
+  font-weight: 600;
+}
+.welcomeSub {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
-/*For mobile*/
-@media (max-width:900px){
-  .app{grid-template-columns:1fr}
-  .sidebar{border-right:0;border-bottom:1px solid var(--border)}
-  .cards{grid-template-columns:1fr}
+/* right column actions */
+.welcomeActions .button {
+  /* no-op if you already use a global .button; kept so it lines up */
+  min-width: 140px;
 }
+
+/* responsive: stack on small screens */
+@media (max-width: 900px) {
+  .welcomeSection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .welcomeActions {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+/* Search area (in header)*/
+.search {
+  display: flex;
+  width: 460px;
+  height: 44px;
+  padding: 8px 13px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: #02C39A;
+}
+
