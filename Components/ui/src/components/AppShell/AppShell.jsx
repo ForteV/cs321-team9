@@ -7,7 +7,7 @@ export default function AppShell(){
     <div className={s.app}>
         {/* This is for the sidebar */}
       <aside className={s.sidebar}>
-        {/*Sidebar Tittle*/}
+        {/*Sidebar Title*/}
         <div className={s.sideTitle}>Quick Links</div>
         
         {/*Sub Links to click*/}
