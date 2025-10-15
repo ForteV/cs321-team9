@@ -4,9 +4,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppShell from './components/AppShell/AppShell.jsx';
 import Home from './components/Pages/Home.jsx';
+import Allergies from './components/Pages/Allergies.jsx';
 
 //TO BE IMPLEMENTED
-//import Allergies from './pages/Allergies.jsx';
 //import Bloodwork from './pages/Bloodwork.jsx';
 //import Medications from './pages/Medications.jsx';
 //import Other from './pages/Other.jsx';
@@ -20,8 +20,8 @@ export default function App() {
         {/* AppShell = persistent layout */}
         <Route path="/" element={<AppShell />}>
           <Route index element={<Home />} />
-          {/*<Route path="allergies" element={<Allergies />} />
-          <Route path="bloodwork" element={<Bloodwork />} />
+          {<Route path="allergies" element={<Allergies />} />
+          /*<Route path="bloodwork" element={<Bloodwork />} />
           <Route path="medications" element={<Medications />} />
           <Route path="other" element={<Other />} />
           <Route path="*" element={<NotFound />} />*/}

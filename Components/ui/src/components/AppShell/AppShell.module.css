@@ -1,3 +1,6 @@
+/* Imported Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
+
 /* Variables*/
 :root {
   /* header height used by the fixed header hack */
@@ -51,13 +54,14 @@
 
 /* Separate logo styling */
 .logo {
-  color: #02C39A;
+  color:#02C39A;
   font-size: 64px;
   font-weight: 400;
-  line-height: 1;
+  font-family: "Lexend", sans-serif;
+  line-height: normal;
   display: inline-block;
-  padding: 0 18px;
-  margin: 0 8px;
+  padding: 0 10px;
+  margin: 0 10px;
   white-space: nowrap;
   letter-spacing: 0.2px;
   overflow: visible;
@@ -169,11 +173,33 @@
   display: flex;
   width: 460px;
   height: 44px;
-  padding: 8px 13px;
+  padding: 15px 15px;
+  margin-left: 20px;
+  margin-top: 10px;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
   border-radius: 6px;
   background: #02C39A;
+  border-style: none;
+}
+
+.search::placeholder {
+  color:rgba(224, 255, 251, 0.842);
+  font-family: "Lexend", sans-serif;
+}
+
+.app::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--pagebar-h);
+  height: 4px;
+  background: #000;
+}
+
+.pagebar .topLine {
+  display: none;
 }
 

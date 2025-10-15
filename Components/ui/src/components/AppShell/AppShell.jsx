@@ -8,12 +8,14 @@ export default function AppShell() {
     <div className={s.app}>
       {/* make header a direct child of .app */}
       <header className={s.pagebar}>
+        <title>MediBase</title>
         <h1 className={s.logo}>
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-            MediBase
+            Medi<font color="#0000">Base</font>
           </Link>
         </h1>
         <input className={s.search} placeholder="Search records…" />
+        <div className={s.topLine}></div>
       </header>
 
       <aside className={s.sidebar}>
