@@ -2,7 +2,10 @@
     background:var(--surface);
     border:1px solid var(--border);
     border-radius:var(--radius);
-    padding:16px
+    padding:16px;
+  /* control height via CSS variable */
+  min-height: var(--card-min-h, 0);
+
 }
 
 .title{

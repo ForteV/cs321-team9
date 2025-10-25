@@ -25,7 +25,6 @@ export default function AppShell() {
           <Link to="/allergies">Allergies</Link>
           <Link to="/bloodwork">Bloodwork</Link>
           <Link to="/medications">Medications</Link>
-          <Link to="/other">Other</Link>
         </nav>
       </aside>
 

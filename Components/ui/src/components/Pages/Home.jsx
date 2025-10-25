@@ -18,14 +18,12 @@ export default function Home() {
       </section>
 
       <section className={s.cards}>
-        <Card title="Check what's next" items={["Check Calendar","Immunizations","Scheduled Procedures"]}/>
-        <Card title="Insurance Records" items={["Providers","Records"]}/>
-        <Card title="Your Info" items={["Profile","Edit Info","Convert to PDF"]}/>
+        <Card className={s.taller} title="Check what's next" items={["Check Calendar","Immunizations","Scheduled Procedures"]}/>
+        <Card className={s.taller} title="Insurance Records" items={["Providers","Records"]}/>
+        <Card className={s.taller} title="Your Info" items={["Profile","Edit Info","Convert to PDF"]}/>
       </section>
 
-      <section className={s.block}>
-        <h3>Recent Records</h3>
-      </section>
+      
     </>
   );
 }

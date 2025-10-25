@@ -117,6 +117,8 @@
   gap: 24px;
 }
 
+.taller{ --card-min-h: 420px; }
+
 /*Welcome section*/
 .welcomeSection {
   background: var(--card, #fff);
