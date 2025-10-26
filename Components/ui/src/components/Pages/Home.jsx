@@ -1,5 +1,6 @@
 import React from "react";
 import s from "../AppShell/AppShell.module.css";
+import { Outlet, Link } from "react-router-dom";
 import Card from "../Card/Card.jsx";
 
 export default function Home() {
@@ -13,14 +14,16 @@ export default function Home() {
           </p>
         </div>
         <div className={s.welcomeActions}>
-          <button className="button primary">✚ Get started</button>
+          
+          <Link to="/addRecords" className="button">✚ Get started</Link>
+
         </div>
       </section>
 
       <section className={s.cards}>
         <Card className={s.taller} title="Check what's next" items={["Check Calendar","Immunizations","Scheduled Procedures"]}/>
         <Card className={s.taller} title="Insurance Records" items={["Providers","Records"]}/>
-        <Card className={s.taller} title="Your Info" items={["Profile","Edit Info","Convert to PDF"]}/>
+        <Card className={s.taller} title="Your Info" items={["Profile","Edit Info"]}/>
       </section>
 
       

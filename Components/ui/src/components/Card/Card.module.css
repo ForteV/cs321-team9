@@ -3,9 +3,27 @@
     border:1px solid var(--border);
     border-radius:var(--radius);
     padding:16px;
-  /* control height via CSS variable */
-  min-height: var(--card-min-h, 0);
+    height: 100%;
+    /*Control height of card*/
+    min-height: var(--card-min-h, 0);
+}
 
+/*Used for add record, optional notes*/
+.expandableTextarea {
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.4;
+    padding: 0;
+    min-height: 24px;
+    outline: none;
+
+    transition: height 0.2s ease;
 }
 
 .title{

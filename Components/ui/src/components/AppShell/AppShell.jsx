@@ -13,6 +13,7 @@ export default function AppShell() {
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             Medi<font color="#0000">Base</font>
           </Link>
+          
         </h1>
         <input className={s.search} placeholder="Search records…" />
         <div className={s.topLine}></div>
@@ -24,7 +25,7 @@ export default function AppShell() {
         <nav className={s.nav}>
           <Link to="/allergies">Allergies</Link>
           <Link to="/bloodwork">Bloodwork</Link>
-          <Link to="/medications">Medications</Link>
+          <Link to="/medications">Medications</Link>  
         </nav>
       </aside>
 
