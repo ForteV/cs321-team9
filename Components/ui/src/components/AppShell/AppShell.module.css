@@ -205,3 +205,21 @@
   display: none;
 }
 
+.logOut {
+  display: inline-flex;
+  font-family: "Lexend", sans-serif;
+  font-size: 24px;
+  margin-left: auto;
+  background-color:#02C39A;
+  border-style: none;
+  padding: 15px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 100ms ease, color 100ms ease;
+}
+
+.logOut:hover{
+  background-color: #005744;
+  color: white;
+}
+

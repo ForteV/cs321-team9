@@ -25,8 +25,6 @@ export default function Home() {
         <Card className={s.taller} title="Insurance Records" items={["Providers","Records"]}/>
         <Card className={s.taller} title="Your Info" items={["Profile","Edit Info"]}/>
       </section>
-
-      
     </>
   );
 }

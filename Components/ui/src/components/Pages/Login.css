@@ -1,0 +1,59 @@
+/* Imported Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
+
+.logInPage h1 {
+    font-family: "Lexend" "sans-serif";
+    color:#02C39A;
+    font-size: 64px;
+    font-weight: 400;
+    font-family: "Lexend", sans-serif;
+    padding: 0px 10px;
+    margin: 10px 10px;
+}
+
+.logInPage h2 {
+    text-align: center;
+    font-size: 64px;
+    padding: 150px 0px 20px 0px;
+}
+
+.logInPage form {
+    justify-content: center;
+    align-items: center;
+}
+
+.logInPage input {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 14px;
+    background: #02C39A;
+    color:rgba(224, 255, 251, 0.842);
+    border-style: none;
+    border-radius: 6px;
+    font-family: "Lexend", sans-serif;
+}
+
+.logInPage input::placeholder {
+    color:rgba(224, 255, 251, 0.842);
+    font-family: "Lexend", sans-serif;
+}
+
+.logInPage .button.primary {
+    background: #02C39A;
+    font-family: "Lexend", sans-serif;
+    font-size: 32px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 15px 30px 15px;
+    margin-top: 20px;
+    margin-left: 10px;
+    color: black;
+    transition: background-color 100ms ease, color 100ms ease;
+}
+
+.logInPage .button:hover {
+    background-color: #005744;
+    color: white;
+}

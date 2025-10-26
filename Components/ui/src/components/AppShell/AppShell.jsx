@@ -16,6 +16,11 @@ export default function AppShell() {
           
         </h1>
         <input className={s.search} placeholder="Search records…" />
+        <button className = {s.logOut}>
+          <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}>
+            Log Out
+          </Link>
+        </button>
         <div className={s.topLine}></div>
       </header>
 
