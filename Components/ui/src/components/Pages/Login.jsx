@@ -25,6 +25,7 @@ export default function Login() {
         <input name="username" placeholder="Username" type="text" required />
         <input name="password" placeholder="Password" type="password" required />
         <div>
+          <button type="submit" className="button primary">Create Account</button>
           <button type="submit" className="button primary">Submit</button>
         </div>
       </form>

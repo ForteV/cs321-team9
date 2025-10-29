@@ -55,13 +55,12 @@
 /* Separate logo styling */
 .logo {
   color:#02C39A;
-  font-size: 64px;
+  font-size: 3vw;
   font-weight: 400;
   font-family: "Lexend", sans-serif;
   line-height: normal;
   display: inline-block;
-  padding: 0 10px;
-  margin: 0 10px;
+  padding: 10px 10px;
   white-space: nowrap;
   letter-spacing: 0.2px;
   overflow: visible;
@@ -173,17 +172,21 @@
 /* Search area (in header)*/
 .search {
   display: flex;
-  width: 460px;
+  /*min-width: 120px;*/
+  width: 640px;
   height: 44px;
   padding: 15px 15px;
   margin-left: 20px;
+  margin-right: 20px;
   margin-top: 10px;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
+  flex-shrink: 3;
   border-radius: 6px;
   background: #02C39A;
   border-style: none;
+  color: white;
+  font-family: "Lexend", sans-serif;
 }
 
 .search::placeholder {
@@ -207,9 +210,14 @@
 
 .logOut {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: "Lexend", sans-serif;
-  font-size: 24px;
+  font-size: 2vw;
+  white-space: nowrap;
+  overflow: hidden;
   margin-left: auto;
+  margin-top: 10px;
   background-color:#02C39A;
   border-style: none;
   padding: 15px 30px;

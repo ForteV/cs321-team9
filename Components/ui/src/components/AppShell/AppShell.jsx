@@ -10,7 +10,7 @@ export default function AppShell() {
       <header className={s.pagebar}>
         <title>MediBase</title>
         <h1 className={s.logo}>
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <Link to="/App" style={{ textDecoration: "none", color: "inherit" }}>
             Medi<font color="#0000">Base</font>
           </Link>
           
@@ -28,9 +28,14 @@ export default function AppShell() {
         {/*Sidebar Title*/}
         <div className={s.sideTitle}>Quick Links</div>
         <nav className={s.nav}>
-          <Link to="/allergies">Allergies</Link>
-          <Link to="/bloodwork">Bloodwork</Link>
-          <Link to="/medications">Medications</Link>  
+          <Link to="/app/allergies">Allergies</Link>
+          <Link to="/app/bloodwork">Bloodwork</Link>
+          <Link to="/app/immunizations">Immunizations</Link>
+          <Link to="/app/insurancerecords">Insurance Records</Link>
+          <Link to="/app/insuranceproviders">Insurance Providers</Link>
+          <Link to="/app/procedures">Scheduled Procedures</Link>
+          <Link to="/app/medications">Medications</Link>
+          <Link to="/app/profile">Profile</Link>  
         </nav>
       </aside>
 

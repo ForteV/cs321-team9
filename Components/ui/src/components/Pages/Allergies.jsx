@@ -10,10 +10,7 @@ export default function Allergies() {
                 <title>Allergies</title>
                 <h1>Allergies</h1>
             </section>
-
-            <section className={s.recentEditsTitle}>
-                <h2>Most Recent Edits</h2>
-            </section>
+            
             <section className={s.cards}>
                 <Card items={["Immunization 1", "Date"]}/>
                 <Card items={["Immunization 2", "Date"]}/>
