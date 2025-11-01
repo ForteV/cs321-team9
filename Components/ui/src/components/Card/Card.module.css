@@ -28,6 +28,12 @@
     transition: height 0.2s ease;
 }
 
+.stack{
+    flex-direction: column;
+    flex-wrap: nonwrap;
+    gap: 8px
+}
+
 .title{
     font-weight:600;
     margin-bottom:8px

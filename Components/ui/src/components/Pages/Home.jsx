@@ -15,15 +15,15 @@ export default function Home() {
         </div>
         <div className={s.welcomeActions}>
           
-          <Link to="/addRecords" className="button">✚ Get started</Link>
+          <Link to="/addRecords" className="button">✚ Add Record</Link>
 
         </div>
       </section>
 
       <section className={s.cards}>
-        <Card className={s.taller} title="Check what's next" items={["Check Calendar","Immunizations","Scheduled Procedures"]}/>
-        <Card className={s.taller} title="Insurance Records" items={["Providers","Records"]}/>
-        <Card className={s.taller} title="Your Info" items={["Profile","Edit Info"]}/>
+        <Card stack className={s.taller} title="Check what's next" items={["Check Calendar","Immunizations","Scheduled Procedures"]}/>
+        <Card stack className={s.taller} title="Insurance Records" items={["Providers","Records"]}/>
+        <Card stack className={s.taller} title="Your Info" items={["Profile","Edit Info"]}/>
       </section>
     </>
   );
