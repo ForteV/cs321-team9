@@ -17,17 +17,14 @@
     padding: 150px 0px 20px 0px;
 }
 
-.logInPage form {
+.logInPage input {
     justify-content: center;
     align-items: center;
-}
-
-.logInPage input {
     width: 100%;
     max-width: 420px;
     padding: 12px 14px;
     background: #02C39A;
-    color:rgba(224, 255, 251, 0.842);
+    color:white;
     border-style: none;
     border-radius: 6px;
     font-family: "Lexend", sans-serif;

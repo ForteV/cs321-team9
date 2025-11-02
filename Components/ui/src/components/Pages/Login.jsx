@@ -7,8 +7,8 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // perform real auth here; for now just mark authenticated
-    sessionStorage.setItem("authenticated", "1");
+    // perform real auth here, for now just mark authenticated
+    localStorage.setItem("authenticated", "1");
     navigate("/app", { replace: true });
   }
 
@@ -22,9 +22,11 @@ export default function Login() {
       </header>
       <h2>Sign in</h2>
       <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12}}>
-        <input name="username" placeholder="Username" type="text" required />
-        <input name="password" placeholder="Password" type="password" required />
-        <div>
+        <div className="authentication">
+          <input name="username" placeholder="Username" type="text" required />
+          <input name="password" placeholder="Password" type="password" required />
+        </div>
+        <div className="submissions">
           <button type="submit" className="button primary">Create Account</button>
           <button type="submit" className="button primary">Submit</button>
         </div>
