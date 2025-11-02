@@ -15,7 +15,7 @@ export default function Home() {
         </div>
         <div className={s.welcomeActions}>
           
-          <Link to="/addRecords" className="button">✚ Add Record</Link>
+          <Link to="/app/addRecords" className="button">✚ Add Record</Link>
 
         </div>
       </section>
