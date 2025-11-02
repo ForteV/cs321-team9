@@ -21,7 +21,7 @@ export default function Home() {
       </section>
 
       <section className={s.cards}>
-        <Card stack className={s.taller} title="Check what's next" items={["Check Calendar","Immunizations","Scheduled Procedures"]}/>
+        <Card stack className={s.taller} title="Check what's next" items={["Immunizations","Scheduled Procedures"]}/>
         <Card stack className={s.taller} title="Insurance Records" items={["Providers","Records"]}/>
         <Card stack className={s.taller} title="Your Info" items={["Profile","Edit Info"]}/>
       </section>
