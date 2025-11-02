@@ -1,0 +1,91 @@
+/* Outer 2-col grid: left = Date+Dropdown, right = Notes */
+.formGrid{
+  display: grid;
+  grid-template-columns: minmax(260px, var(--date-col, 358px)) 1fr;
+  gap: 16px;               /* 16px between columns; vertical gap is handled by .leftCol */
+  align-items: start;      /* top-align both sides */
+  justify-items: stretch;
+}
+
+/* Left column stack (controls spacing between Date and Dropdown) */
+.leftCol{
+  display: grid;
+  row-gap: 8px;            /* <<< controls the space between Date and dropdown */
+  align-content: start;
+}
+
+/* (Remove any .notesSpan2 you had; we don't span rows anymore) */
+
+/* Dropdown box (unchanged from before) */
+.categoryBox{
+  width: 100%;
+  height: 73px;
+  box-sizing: border-box;
+  background: #9DCAC1;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.categoryLabel{
+  font: inherit;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.categorySelect{
+  flex: 1;
+  height: 100%;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+  padding: 0 8px;
+}
+
+/* Row with buttons (right-aligned; change to flex-start if you want left) */
+.actionsRow{
+  display: flex;
+  justify-content: flex-end; /* or: flex-start / space-between */
+  gap: 8px;
+}
+
+/* Token-friendly buttons */
+.btn{
+  font: inherit;
+  color: inherit;
+  background: var(--surface);          /* match cards/dropdown */
+  border: 1px solid var(--border);
+  border-radius: 5px;                  /* same radius as dropdown */
+  padding: 10px 16px;                  /* close to your 73px box height scale */
+  line-height: 1;
+  cursor: pointer;
+  transition: background .15s, box-shadow .15s, transform .06s;
+}
+
+.btn:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, currentColor 30%, transparent);
+}
+
+.btn:hover{ filter: brightness(0.98); }
+.btn:active{ transform: translateY(1px); }
+
+/* Variants */
+.btnSecondary{
+  background: transparent;             /* ghost/outline */
+}
+
+.btnPrimary{
+  background: #9DCAC1;                 /* your mint */
+}
+
+@media (max-width: 720px){
+  .formGrid{ grid-template-columns: 1fr; } /* stacks on small screens */
+}
