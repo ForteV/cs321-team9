@@ -1,0 +1,233 @@
+/* Imported Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
+
+/* Variables*/
+:root {
+  /* header height used by the fixed header hack */
+  --pagebar-h: 125px;
+}
+
+/*App layout
+  (grid: [sidebar][main])*/
+.app {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100dvh;
+}
+
+/* optional helper (unused/kept as-is) */
+.top-part {
+  grid-template-rows: auto 1fr;
+}
+
+/* Top / Page header (pagebar)*/
+.pagebar {
+  position: fixed;
+  inset: 0 0 auto 0;         
+  height: var(--pagebar-h);
+  display: flex;
+  align-items: center;
+  background: var(--card, #fff);
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(16,24,40,0.06);
+  box-shadow: 0 1px 0 rgba(16,24,40,0.02);
+  z-index: 9999;
+  width: 100%;
+}
+
+/* push everything inside .app (except the header) down by header height */
+.app > :not(.pagebar) {
+  margin-top: var(--pagebar-h);
+}
+
+/* small responsive tweak */
+@media (max-width: 720px) {
+  :root { --pagebar-h: 88px; }
+  .pagebar { height: var(--pagebar-h); padding: 12px; }
+}
+
+/*Branding/Logo*/
+.brand {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* Separate logo styling */
+.logo {
+  color:#02C39A;
+  font-size: 3vw;
+  font-weight: 400;
+  font-family: "Lexend", sans-serif;
+  line-height: normal;
+  display: inline-block;
+  padding: 10px 10px;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  overflow: visible;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/*Force color*/
+.pagebar .logo { color: #02C39A; }
+
+/*Sidebar*/
+.sidebar {
+  background: #fff;
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
+}
+
+.sideTitle {
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/*Sidebar navigation (quicklinks)*/
+.nav {
+  display: grid;
+  gap: 6px;
+}
+
+.nav a {
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #111827;
+  text-decoration: none;
+  display: block;
+}
+
+.nav a:hover {
+  background: #f3f4f6;
+}
+
+/* Main content area*/
+.main {
+  padding: 24px 32px;
+  display: grid;
+  gap: 24px;
+}
+
+/* cards / grid inside main */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.taller{ --card-min-h: 420px; }
+
+/*Welcome section*/
+.welcomeSection {
+  background: var(--card, #fff);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* left column text */
+.welcomeText h2 {
+  margin: 0;
+  font-size: 3.25rem;
+  font-weight: 600;
+}
+.welcomeSub {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* right column actions */
+.welcomeActions .button {
+  /* no-op if you already use a global .button; kept so it lines up */
+  min-width: 140px;
+}
+
+/* responsive: stack on small screens */
+@media (max-width: 900px) {
+  .welcomeSection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .welcomeActions {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+/* Search area (in header)*/
+.search {
+  display: flex;
+  /*min-width: 120px;*/
+  width: 640px;
+  height: 44px;
+  padding: 15px 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 3;
+  border-radius: 6px;
+  background: #02C39A;
+  border-style: none;
+  color: white;
+  font-family: "Lexend", sans-serif;
+}
+
+.search::placeholder {
+  color:rgba(224, 255, 251, 0.842);
+  font-family: "Lexend", sans-serif;
+}
+
+.app::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--pagebar-h);
+  height: 4px;
+  background: #000;
+}
+
+.pagebar .topLine {
+  display: none;
+}
+
+.logOut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lexend", sans-serif;
+  font-size: 2vw;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: auto;
+  margin-top: 10px;
+  background-color:#02C39A;
+  border-style: none;
+  padding: 15px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 100ms ease, color 100ms ease;
+}
+
+.logOut:hover{
+  background-color: #005744;
+  color: white;
+}
+

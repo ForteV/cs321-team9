@@ -1,0 +1,58 @@
+/*
+How everything should look for the websites, like "what color should it be when hovering"
+
+No symbol = div (tag)
+Dot = .class (class)
+Colon = :hover (special state/condition)
+Hash = #id (unique ID)
+
+*/
+
+/*Automatic styling, for the whole website*/
+*{box-sizing:border-box} body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-size:24px;
+    line-height:normal;
+    font-style: normal;
+    font-weight: 400;
+    font-family:"Lexend", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+a{
+    color:var(--brand);
+    text-decoration:none
+}
+
+a:hover{
+    text-decoration:underline
+}
+
+:focus-visible{
+    outline:2px solid var(--brand);
+    outline-offset:2px
+}
+
+/*Manual Styling for certain parts of website*/
+/*Button*/
+.button{
+    padding:30px 50px;
+    border-radius:10px;
+    border:4px solid var(--border);
+
+    background:var(--surface);
+    cursor:pointer
+}
+
+.button.primary{
+    background:var(--brand);
+    color:#fff;
+    border-color:transparent
+}
+
+/*Centers content*/
+.container{
+    max-width:1200px;
+    margin:0 auto
+}
