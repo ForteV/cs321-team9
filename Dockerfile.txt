@@ -1,0 +1,19 @@
+# Use the official Tomcat 11 base image
+FROM tomcat:11-jdk21-temurin
+
+# Remove default ROOT webapp
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
+
+# Copy your WAR to the webapps folder and rename it to ROOT.war for root context
+COPY target/gmu_software_engineering.war /usr/local/tomcat/webapps/ROOT.war
+
+# Set environment variables for your Railway MySQL connection
+ENV DATABASE_URL=""
+ENV DATABASE_USER=""
+ENV DATABASE_PASS=""
+
+# Expose port 8080 for Railway
+EXPOSE 8080
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]
