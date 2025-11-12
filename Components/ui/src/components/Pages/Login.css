@@ -27,7 +27,6 @@
     max-width: 420px;
     padding: 12px 14px;
     margin-bottom: 10px;
-    margin-left: 35px;
     background: #02C39A;
     color:white;
     border-style: none;
@@ -50,12 +49,62 @@
     text-decoration: none;
     padding: 15px 30px 15px;
     margin-top: 20px;
-    margin-left: 10px;
+    margin-left: 102px;
     color: black;
     transition: background-color 100ms ease, color 100ms ease;
 }
 
 .logInPage .button:hover {
+    background-color: #005744;
+    color: white;
+}
+
+.logInPage .accountCreation {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.logInPage h3 {
+    font-weight: 300;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.logInPage .button.secondary {
+    background: #02C39A;
+    font-family: "Lexend", sans-serif;
+    font-size: 32px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 15px 30px 15px;
+    margin-top: 5px;
+    color: black;
+    transition: background-color 100ms ease, color 100ms ease;
+}
+
+.logInPage .button.secondary:hover {
+    background-color: #005744;
+    color: white;
+}
+
+.logInPage .button.tertiary {
+    background: #02C39A;
+    font-family: "Lexend", sans-serif;
+    font-size: 28px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 15px 30px 15px;
+    margin-top: 5px;
+    color: black;
+    transition: background-color 100ms ease, color 100ms ease;
+}
+
+.logInPage .button.tertiary:hover {
     background-color: #005744;
     color: white;
 }

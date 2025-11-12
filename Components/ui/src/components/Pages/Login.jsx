@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
 import "./Login.css";
+import CreateAccount from "./CreateAccount.jsx";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,6 +12,11 @@ export default function Login() {
     // perform real auth here, for now just mark authenticated
     localStorage.setItem("authenticated", "1");
     navigate("/app", { replace: true });
+  }
+
+  const [buttonPopup, setButtonPopup] = useState(false);
+  function handleAccountCreation() {
+
   }
 
   return (
@@ -27,10 +34,17 @@ export default function Login() {
           <input name="password" placeholder="Password" type="password" required />
         </div>
         <div className="submissions">
-          <button type="submit" className="button primary">Create Account</button>
           <button type="submit" className="button primary">Submit</button>
         </div>
       </form>
+
+      <div className="accountCreation">
+        <h3>Don't have an account yet?</h3>
+        <button onClick={() => setButtonPopup(true)} className="button secondary">Create Account</button>
+        <CreateAccount trigger={buttonPopup} setTrigger={setButtonPopup}>
+
+        </CreateAccount>
+      </div>
     </div>
   );
 }
