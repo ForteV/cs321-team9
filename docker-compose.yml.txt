@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  gmu_app:
+    build: .
+    container_name: gmu_software_engineering
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env

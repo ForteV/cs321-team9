@@ -20,12 +20,12 @@ public class gmu_servlet extends HttpServlet {
 	 public void doGet(HttpServletRequest request, HttpServletResponse response){
 	        try
 	        {
-	            //String url = "jdbc:mysql://turntable.proxy.rlwy.net:44955/gmu";
-		        //String user = "root";
-		        //String password = "xlLnDOFxroMxPrsYFLbhVVGvdXfOhBQy";
-	        	String url = System.getenv("DATABASE_URL");
-	        	String user = System.getenv("DATABASE_USER");
-	        	String password = System.getenv("DATABASE_PASS");
+	            String url = "jdbc:mysql://turntable.proxy.rlwy.net:44955/gmu";
+		        String user = "root";
+		        String password = "xlLnDOFxroMxPrsYFLbhVVGvdXfOhBQy";
+	        	//String url = System.getenv("DATABASE_URL");
+	        	//String user = System.getenv("DATABASE_USER");
+	        	//String password = System.getenv("DATABASE_PASS");
 	            Connection conn = DriverManager.getConnection(url, user, password);
 	            Statement stmt = conn.createStatement();
 	            ResultSet rs = stmt.executeQuery("SELECT * FROM user");
