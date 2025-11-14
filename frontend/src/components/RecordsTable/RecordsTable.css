@@ -1,0 +1,33 @@
+.records-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.records-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.records-table th {
+    background: #9DCAC1;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid #ccc;
+}
+
+.records-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.records-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.records-table tr:hover {
+    background: #eef6f4;
+}

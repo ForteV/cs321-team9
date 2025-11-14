@@ -231,3 +231,12 @@
   color: white;
 }
 
+.welcomeMessage {
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-right: 20px;
+    white-space: nowrap;
+    color: #00332c;
+    align-self: center;
+}

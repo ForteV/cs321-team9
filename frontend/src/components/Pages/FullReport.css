@@ -1,0 +1,105 @@
+/* ====== PAGE CONTAINER ====== */
+.fullReportContainer {
+    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    font-family: "Inter", sans-serif;
+}
+
+/* HEADER */
+.fullReportTitle {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.fullReportSubtitle {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+/* PRINT BUTTON */
+.printButton {
+    background: #9DCAC1;
+    border: 1px solid #7fb5a9;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+.printButton:hover {
+    filter: brightness(0.96);
+}
+
+/* CATEGORY BLOCK */
+.categoryBlock {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    page-break-inside: avoid;
+}
+
+.categoryTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* ENTRY ITEM */
+.entryItem {
+    margin-bottom: 18px;
+}
+
+.entryName {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.entryDate {
+    color: #555;
+    font-size: 14px;
+}
+
+.entryNotes {
+    font-size: 14px;
+    margin-top: 4px;
+    color: #444;
+}
+
+/* ====== PRINT STYLES ====== */
+@media print {
+
+    /* Hide everything EXCEPT the report itself */
+    body * {
+        visibility: hidden !important;
+        background: white !important;
+        box-shadow: none !important;
+    }
+
+    .fullReportContainer,
+    .fullReportContainer * {
+        visibility: visible !important;
+    }
+
+    /* Put the report at the top-left of the printed page */
+    .fullReportContainer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    /* Hide print button */
+    .printButton {
+        display: none !important;
+    }
+
+    /* Add page break after each category */
+    .categoryBlock {
+        page-break-after: always;
+    }
+}

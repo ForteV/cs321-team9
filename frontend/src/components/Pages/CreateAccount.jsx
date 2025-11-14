@@ -86,42 +86,33 @@ export default function CreateAccount(props) {
                 dob: toISOFormat(dob),
             };
 
-            const r = await fetch("/api/accounts", {
+            const r = await fetch("http://localhost:8080/api/accounts", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             });
 
-            if (!r.ok) throw new Error(await r.text());
+           const result = await r.text();
 
-            setShowSuccess(true);
-            setMsg("Account created ✔");
-        
+                if (result.trim() === "-2") {
+                    setMsg("That username is already taken.");
+                    return;
+                }
+
+                if (result.trim() !== "1") {
+                    setMsg("Could not create account. Please try again.");
+                    return;
+                }
+
+                setShowSuccess(true);
+                setMsg("Account created ✔");
+
         } 
             
         catch (err) {
+            console.error(err);
             setMsg(`Could not create account: ${err.message || err}`);
-            //forte delete this when implemented database
-            if (import.meta.env.DEV) {
-                const fake = {
-                    id: Date.now(),
-                    displayname: displayname.trim(),
-                    username: username.trim(),
-                    dob: toISOFormat(dob),
-                    created_at: new Date().toISOString(),
-                };
-
-                // persist to localStorage so you can see it later if needed
-                const KEY = "accounts_dev";
-                const existing = JSON.parse(localStorage.getItem(KEY) || "[]");
-                localStorage.setItem(KEY, JSON.stringify([fake, ...existing]));
-
-                // override message to success so UX feels normal
-                setMsg("Account created ✔ (GUYS THIS IS A TEST)");
-                setShowSuccess(true);
-        
-            }
-            //until here
+           
         } 
         
         finally {
@@ -228,7 +219,7 @@ export default function CreateAccount(props) {
                     >
                         <div className="popup-inner" style={{ maxWidth: 420, textAlign: "center" }}>
                             <h4>Account created</h4>
-                            <p>You can now continue, this is a test will be good once database.</p>
+                            <p>You can now continue.</p>
                             <button type="button" className="button" onClick={closeOnSuccess}>
                                 Close
                             </button>

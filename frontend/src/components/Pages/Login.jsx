@@ -9,10 +9,44 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // perform real auth here, for now just mark authenticated
-    localStorage.setItem("authenticated", "1");
-    navigate("/app", { replace: true });
+
+    const username = e.target.username.value;
+    const password = e.target.password.value;
+
+    fetch("http://localhost:8080/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        username: username,
+        password: password
+      })
+    })
+      .then(res => res.text())
+      .then(result => {
+        const trimmed = result.trim();
+
+        if (!trimmed.startsWith("1")) {
+          alert("Invalid username or password.");
+          return;
+        }
+
+        const parts = trimmed.split(",");
+        const userid = parts[1];
+
+        localStorage.setItem("authenticated", "1");
+        localStorage.setItem("userid", userid);
+
+        navigate("/app", { replace: true });
+      })
+
+      .catch(error => {
+        console.error(error);
+        alert("Unable to connect to server.");
+      });
   }
+
 
   const [buttonPopup, setButtonPopup] = useState(false);
   function handleAccountCreation() {
@@ -24,11 +58,11 @@ export default function Login() {
       <header>
         <title>Medibase - LogIn</title>
         <h1>
-            Medi<font color="#0000">Base</font>
+          Medi<font color="#0000">Base</font>
         </h1>
       </header>
       <h2>Sign in</h2>
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12}}>
+      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12 }}>
         <div className="authentication">
           <input name="username" placeholder="Username" type="text" required />
           <input name="password" placeholder="Password" type="password" required />
