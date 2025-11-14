@@ -12,9 +12,9 @@ import org.json.JSONObject;
 @WebServlet("/api/accounts")
 public class CreateAccountServlet extends HttpServlet {
 
-    private static final String URL = "jdbc:mysql://turntable.proxy.rlwy.net:44955/gmu";
-    private static final String USER = "root";
-    private static final String PASS = "xlLnDOFxroMxPrsYFLbhVVGvdXfOhBQy";
+    private static final String URL = System.getenv("DB_URL");
+    private static final String USER = System.getenv("DB_USER");
+    private static final String PASS = System.getenv("DB_PASS");
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -27,16 +27,17 @@ public class CreateAccountServlet extends HttpServlet {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader r = req.getReader()) {
             String line;
-            while ((line = r.readLine()) != null) sb.append(line);
+            while ((line = r.readLine()) != null)
+                sb.append(line);
         }
 
         try {
             JSONObject json = new JSONObject(sb.toString());
 
             String displayname = json.getString("displayname").trim();
-            String username    = json.getString("username").trim();
-            String password    = json.getString("password").trim();
-            String dob         = json.getString("dob").trim(); // YYYY-MM-DD
+            String username = json.getString("username").trim();
+            String password = json.getString("password").trim();
+            String dob = json.getString("dob").trim(); // YYYY-MM-DD
 
             // Backend-side validation (NEVER rely only on frontend)
             if (displayname.isEmpty() || username.isEmpty() || password.isEmpty() || dob.isEmpty()) {
@@ -59,9 +60,8 @@ public class CreateAccountServlet extends HttpServlet {
             Connection conn = DriverManager.getConnection(URL, USER, PASS);
 
             PreparedStatement ps = conn.prepareStatement(
-                "INSERT INTO user (fname, lname, login_id, dob, password) VALUES (?, ?, ?, ?, ?)",
-                Statement.RETURN_GENERATED_KEYS
-            );
+                    "INSERT INTO user (fname, lname, login_id, dob, password) VALUES (?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, fname);
             ps.setString(2, lname);
@@ -82,15 +82,13 @@ public class CreateAccountServlet extends HttpServlet {
                 } else {
                     out.println("-1"); // unexpected
                 }
-            }
-            catch (SQLIntegrityConstraintViolationException dup) {
+            } catch (SQLIntegrityConstraintViolationException dup) {
                 // Username already exists (login_id UNIQUE constraint)
                 out.println("-2");
             }
 
             conn.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             out.println("-1"); // server error
         }

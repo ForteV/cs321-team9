@@ -51,3 +51,8 @@ yarn.lock
 # ======================================================
 Desktop.ini
 ehthumbs.db
+
+
+# Ignore build output
+target/
+*.jar

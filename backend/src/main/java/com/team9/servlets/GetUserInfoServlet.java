@@ -11,9 +11,9 @@ import org.json.JSONObject;
 @WebServlet("/api/user/info")
 public class GetUserInfoServlet extends HttpServlet {
 
-    private static final String URL = "jdbc:mysql://turntable.proxy.rlwy.net:44955/gmu";
-    private static final String USER = "root";
-    private static final String PASS = "xlLnDOFxroMxPrsYFLbhVVGvdXfOhBQy";
+    private static final String URL = System.getenv("DB_URL");
+    private static final String USER = System.getenv("DB_USER");
+    private static final String PASS = System.getenv("DB_PASS");
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -35,9 +35,8 @@ public class GetUserInfoServlet extends HttpServlet {
             Connection conn = DriverManager.getConnection(URL, USER, PASS);
 
             PreparedStatement ps = conn.prepareStatement(
-                "SELECT fname, lname, dob, height, weight, bloodpressure, insurance " +
-                "FROM user WHERE userid = ?"
-            );
+                    "SELECT fname, lname, dob, height, weight, bloodpressure, insurance " +
+                            "FROM user WHERE userid = ?");
             ps.setInt(1, userid);
 
             ResultSet rs = ps.executeQuery();

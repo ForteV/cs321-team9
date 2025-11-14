@@ -13,10 +13,9 @@ import java.util.Map;
 @WebServlet("/api/records")
 public class RecordsServlet extends HttpServlet {
 
-    private static final String URL  = "jdbc:mysql://turntable.proxy.rlwy.net:44955/gmu";
-    private static final String USER = "root";
-    private static final String PASS = "xlLnDOFxroMxPrsYFLbhVVGvdXfOhBQy";
-
+    private static final String URL = System.getenv("DB_URL");
+    private static final String USER = System.getenv("DB_USER");
+    private static final String PASS = System.getenv("DB_PASS");
     private static final Gson gson = new Gson();
 
     /** Mapping category → SQL table name **/
@@ -43,11 +42,11 @@ public class RecordsServlet extends HttpServlet {
 
             JsonObject body = gson.fromJson(reader, JsonObject.class);
 
-            String category   = body.get("category").getAsString();
-            String entryName  = body.get("entry_name").getAsString(); // UI still sends entry_name
-            String date       = body.get("date").getAsString();
-            String notes      = body.get("notes").getAsString();
-            int userid        = body.get("userid").getAsInt();
+            String category = body.get("category").getAsString();
+            String entryName = body.get("entry_name").getAsString(); // UI still sends entry_name
+            String date = body.get("date").getAsString();
+            String notes = body.get("notes").getAsString();
+            int userid = body.get("userid").getAsInt();
 
             if (!TABLES.containsKey(category)) {
                 resp.setStatus(400);
@@ -63,11 +62,11 @@ public class RecordsServlet extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-                 PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                    PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
                 ps.setInt(1, userid);
-                ps.setString(2, entryName);        // Goes into `name`
-                ps.setString(3, date);             // YYYY-MM-DD
+                ps.setString(2, entryName); // Goes into `name`
+                ps.setString(3, date); // YYYY-MM-DD
                 ps.setString(4, notes);
 
                 int rows = ps.executeUpdate();
@@ -95,42 +94,153 @@ public class RecordsServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-@Override
-protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException {
 
-    resp.setContentType("application/json");
-    PrintWriter out = resp.getWriter();
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-    String category = req.getParameter("category");
-    String uidStr   = req.getParameter("userid");
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
 
-    if (uidStr == null) {
-        resp.setStatus(400);
-        out.println("{\"error\":\"Missing userid\"}");
-        return;
-    }
+        String category = req.getParameter("category");
+        String uidStr = req.getParameter("userid");
 
-    int userid = Integer.parseInt(uidStr);
+        if (uidStr == null) {
+            resp.setStatus(400);
+            out.println("{\"error\":\"Missing userid\"}");
+            return;
+        }
 
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(URL, USER, PASS);
+        int userid = Integer.parseInt(uidStr);
 
-        // ----------------------------------------------------------
-        // CASE 1 — NO CATEGORY → RETURN ALL RECORDS FROM ALL TABLES
-        // ----------------------------------------------------------
-        if (category == null || category.isEmpty()) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(URL, USER, PASS);
+
+            // ----------------------------------------------------------
+            // CASE 1 — NO CATEGORY → RETURN ALL RECORDS FROM ALL TABLES
+            // ----------------------------------------------------------
+            if (category == null || category.isEmpty()) {
+                StringBuilder json = new StringBuilder();
+                json.append("[");
+
+                boolean firstTableRecord = true;
+
+                for (String cat : TABLES.keySet()) {
+
+                    String table = TABLES.get(cat);
+                    String sql = "SELECT id, name, date, notes FROM " + table +
+                            " WHERE userid=? ORDER BY date DESC";
+
+                    PreparedStatement ps = conn.prepareStatement(sql);
+                    ps.setInt(1, userid);
+
+                    ResultSet rs = ps.executeQuery();
+
+                    while (rs.next()) {
+                        if (!firstTableRecord)
+                            json.append(",");
+                        firstTableRecord = false;
+
+                        json.append("{");
+                        json.append("\"id\":").append(rs.getInt("id")).append(",");
+                        json.append("\"category\":\"").append(cat).append("\",");
+                        json.append("\"name\":\"").append(rs.getString("name")).append("\",");
+                        json.append("\"date\":\"").append(rs.getString("date")).append("\",");
+                        json.append("\"notes\":\"")
+                                .append(rs.getString("notes") == null ? "" : rs.getString("notes").replace("\"", "'"))
+                                .append("\"");
+                        json.append("}");
+                    }
+
+                    ps.close();
+                }
+
+                json.append("]");
+                out.println(json.toString());
+                conn.close();
+                return;
+            }
+
+            // ----------------------------------------------------------
+            // CASE 2 — SPECIFIC CATEGORY REQUESTED
+            // ----------------------------------------------------------
+            if (!TABLES.containsKey(category)) {
+                resp.setStatus(400);
+                out.println("{\"error\":\"Invalid category\"}");
+                return;
+            }
+
+            String table = TABLES.get(category);
+            String sql = "SELECT id, name, date, notes FROM " + table +
+                    " WHERE userid=? ORDER BY date DESC";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, userid);
+
+            ResultSet rs = ps.executeQuery();
+
             StringBuilder json = new StringBuilder();
             json.append("[");
 
-            boolean firstTableRecord = true;
+            boolean first = true;
+            while (rs.next()) {
+                if (!first)
+                    json.append(",");
+                first = false;
 
-            for (String cat : TABLES.keySet()) {
+                json.append("{");
+                json.append("\"id\":").append(rs.getInt("id")).append(",");
+                json.append("\"category\":\"").append(category).append("\",");
+                json.append("\"name\":\"").append(rs.getString("name")).append("\",");
+                json.append("\"date\":\"").append(rs.getString("date")).append("\",");
+                json.append("\"notes\":\"")
+                        .append(rs.getString("notes") == null ? "" : rs.getString("notes").replace("\"", "'"))
+                        .append("\"");
+                json.append("}");
+            }
 
-                String table = TABLES.get(cat);
+            json.append("]");
+            out.println(json.toString());
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.setStatus(500);
+            out.println("{\"error\":\"" + e.getMessage() + "\"}");
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+
+        String uidStr = req.getParameter("userid");
+        if (uidStr == null) {
+            resp.setStatus(400);
+            out.println("{\"error\":\"Missing userid\"}");
+            return;
+        }
+        int userid = Integer.parseInt(uidStr);
+
+        // BUILD A COMBINED LIST FROM ALL TABLES
+        StringBuilder json = new StringBuilder();
+        json.append("[");
+
+        boolean first = true;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(URL, USER, PASS);
+
+            for (String category : TABLES.keySet()) {
+                String table = TABLES.get(category);
+
                 String sql = "SELECT id, name, date, notes FROM " + table +
-                             " WHERE userid=? ORDER BY date DESC";
+                        " WHERE userid = ?";
 
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setInt(1, userid);
@@ -138,134 +248,30 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
-                    if (!firstTableRecord) json.append(",");
-                    firstTableRecord = false;
+                    if (!first)
+                        json.append(",");
+                    first = false;
 
                     json.append("{");
                     json.append("\"id\":").append(rs.getInt("id")).append(",");
-                    json.append("\"category\":\"").append(cat).append("\",");
-                    json.append("\"name\":\"").append(rs.getString("name")).append("\",");
+                    json.append("\"name\":\"").append(rs.getString("name").replace("\"", "'")).append("\",");
                     json.append("\"date\":\"").append(rs.getString("date")).append("\",");
                     json.append("\"notes\":\"")
-                            .append(rs.getString("notes") == null ? "" : rs.getString("notes").replace("\"","'"))
-                            .append("\"");
+                            .append(rs.getString("notes") == null ? "" : rs.getString("notes").replace("\"", "'"))
+                            .append("\",");
+                    json.append("\"category\":\"").append(category).append("\"");
                     json.append("}");
                 }
-
-                ps.close();
             }
 
             json.append("]");
             out.println(json.toString());
             conn.close();
-            return;
+
+        } catch (Exception e) {
+            resp.setStatus(500);
+            out.println("{\"error\":\"" + e.getMessage() + "\"}");
         }
-
-        // ----------------------------------------------------------
-        // CASE 2 — SPECIFIC CATEGORY REQUESTED
-        // ----------------------------------------------------------
-        if (!TABLES.containsKey(category)) {
-            resp.setStatus(400);
-            out.println("{\"error\":\"Invalid category\"}");
-            return;
-        }
-
-        String table = TABLES.get(category);
-        String sql = "SELECT id, name, date, notes FROM " + table +
-                     " WHERE userid=? ORDER BY date DESC";
-
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, userid);
-
-        ResultSet rs = ps.executeQuery();
-
-        StringBuilder json = new StringBuilder();
-        json.append("[");
-
-        boolean first = true;
-        while (rs.next()) {
-            if (!first) json.append(",");
-            first = false;
-
-            json.append("{");
-            json.append("\"id\":").append(rs.getInt("id")).append(",");
-            json.append("\"category\":\"").append(category).append("\",");
-            json.append("\"name\":\"").append(rs.getString("name")).append("\",");
-            json.append("\"date\":\"").append(rs.getString("date")).append("\",");
-            json.append("\"notes\":\"")
-                .append(rs.getString("notes") == null ? "" : rs.getString("notes").replace("\"","'"))
-                .append("\"");
-            json.append("}");
-        }
-
-        json.append("]");
-        out.println(json.toString());
-        conn.close();
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        resp.setStatus(500);
-        out.println("{\"error\":\"" + e.getMessage() + "\"}");
     }
-}
-@Override
-protected void doPut(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException {
-
-    resp.setContentType("application/json");
-    PrintWriter out = resp.getWriter();
-
-    String uidStr = req.getParameter("userid");
-    if (uidStr == null) {
-        resp.setStatus(400);
-        out.println("{\"error\":\"Missing userid\"}");
-        return;
-    }
-    int userid = Integer.parseInt(uidStr);
-
-    // BUILD A COMBINED LIST FROM ALL TABLES
-    StringBuilder json = new StringBuilder();
-    json.append("[");
-
-    boolean first = true;
-
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(URL, USER, PASS);
-
-        for (String category : TABLES.keySet()) {
-            String table = TABLES.get(category);
-
-            String sql = "SELECT id, name, date, notes FROM " + table +
-                         " WHERE userid = ?";
-
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, userid);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                if (!first) json.append(",");
-                first = false;
-
-                json.append("{");
-                json.append("\"id\":").append(rs.getInt("id")).append(",");
-                json.append("\"name\":\"").append(rs.getString("name").replace("\"","'")).append("\",");
-                json.append("\"date\":\"").append(rs.getString("date")).append("\",");
-                json.append("\"notes\":\"").append(rs.getString("notes") == null ? "" : rs.getString("notes").replace("\"","'")).append("\",");
-                json.append("\"category\":\"").append(category).append("\"");
-                json.append("}");
-            }
-        }
-
-        json.append("]");
-        out.println(json.toString());
-        conn.close();
-
-    } catch (Exception e) {
-        resp.setStatus(500);
-        out.println("{\"error\":\"" + e.getMessage() + "\"}");
-    }
-}
 
 }

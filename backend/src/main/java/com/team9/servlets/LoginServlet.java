@@ -9,9 +9,9 @@ import java.sql.*;
 @WebServlet("/api/login")
 public class LoginServlet extends HttpServlet {
 
-    private static final String URL = "jdbc:mysql://turntable.proxy.rlwy.net:44955/gmu";
-    private static final String USER = "root";
-    private static final String PASS = "xlLnDOFxroMxPrsYFLbhVVGvdXfOhBQy";
+    private static final String URL = System.getenv("DB_URL");
+    private static final String USER = System.getenv("DB_USER");
+    private static final String PASS = System.getenv("DB_PASS");
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -33,8 +33,7 @@ public class LoginServlet extends HttpServlet {
             Connection conn = DriverManager.getConnection(URL, USER, PASS);
 
             PreparedStatement ps = conn.prepareStatement(
-                "SELECT userid FROM user WHERE login_id=? AND password=?"
-            );
+                    "SELECT userid FROM user WHERE login_id=? AND password=?");
             ps.setString(1, u);
             ps.setString(2, p);
 
@@ -42,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
                 int userid = rs.getInt("userid");
-                out.println("1," + userid);  
+                out.println("1," + userid);
             } else {
                 out.println("-1");
             }
