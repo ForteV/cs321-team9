@@ -8,7 +8,10 @@ import java.util.EnumSet;
 public class EmbeddedServer {
     public static void main(String[] args) throws Exception {
 
-        Server server = new Server(8080);
+        String portEnv = System.getenv("PORT");
+int port = portEnv != null ? Integer.parseInt(portEnv) : 8080;
+Server server = new Server(port);
+
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
