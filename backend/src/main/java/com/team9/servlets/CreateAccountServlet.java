@@ -12,9 +12,16 @@ import org.json.JSONObject;
 @WebServlet("/api/accounts")
 public class CreateAccountServlet extends HttpServlet {
 
-    private static final String URL = System.getenv("DB_URL");
-    private static final String USER = System.getenv("DB_USER");
-    private static final String PASS = System.getenv("DB_PASS");
+private static final String URL =
+    "jdbc:mysql://" +
+    System.getenv("MYSQLHOST") + ":" +
+    System.getenv("MYSQLPORT") + "/" +
+    System.getenv("MYSQLDATABASE") +
+    "?useSSL=false&allowPublicKeyRetrieval=true";
+
+private static final String USER = System.getenv("MYSQLUSER");
+private static final String PASS = System.getenv("MYSQLPASSWORD");
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
